@@ -16,6 +16,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 21
+      - name: Debug secrets
+        run: |
+            echo "MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}"
+            echo "SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}"
+            echo "GPG_KEY_CONTENTS START: $(echo '${{ secrets.GPG_KEY_CONTENTS }}' | head -n 1)"
+            echo "GPG_KEY_CONTENTS END: $(echo '${{ secrets.GPG_KEY_CONTENTS }}' | tail -n 1)"
       - name: Publish to MavenCentral
         run: ./gradlew publishToMavenCentral --no-configuration-cache
         env:
