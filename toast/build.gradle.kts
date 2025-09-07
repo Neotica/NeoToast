@@ -1,16 +1,15 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.android.kotlin.multiplatform.library)
     alias(libs.plugins.android.lint)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.mavenPublish)
 }
 
 kotlin {
-
-    // Target declarations - add or remove as needed below. These define
-    // which platforms this KMP module supports.
-    // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
         namespace = "id.neotica.toast"
         compileSdk = 36
@@ -26,13 +25,6 @@ kotlin {
         }
     }
 
-    // For iOS targets, this is also where you should
-    // configure native binary output. For more information, see:
-    // https://kotlinlang.org/docs/multiplatform-build-native-binaries.html#build-xcframeworks
-
-    // A step-by-step guide on how to include this library in an XCode
-    // project can be found here:
-    // https://developer.android.com/kotlin/multiplatform/migrate
     val xcfName = "toastKit"
 
     iosX64 {
@@ -78,8 +70,46 @@ kotlin {
         iosMain.dependencies {  }
 
         jvmMain.dependencies {
-//            implementation(compose.desktop.currentOs)
+            implementation(compose.desktop.currentOs)
         }
     }
 
+}
+
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
+
+    coordinates(
+        groupId = "id.neotica",
+        artifactId = "toast",
+        version = "0.1"
+    )
+
+    pom {
+        name = "NeoToast"
+        description = "NeoToast is a Compose MultiPlatform library that gives you toast implementation across Android, iOS, and Desktop JVM. Curated and built with love from the team at Neotica."
+        inceptionYear = "2025"
+        url = "https://github.com/laetuz/NeoToast"
+        licenses {
+            license {
+                name = "The MIT License"
+                url = "https://opensource.org/licenses/MIT"
+                distribution = "https://opensource.org/licenses/MIT"
+            }
+        }
+        developers {
+            developer {
+                id = "laetuz"
+                name = "Ryo Martin"
+                url = "https://github.com/laetuz/"
+            }
+        }
+        scm {
+            url = "https://github.com/laetuz/NeoToast"
+            connection = "scm:git:git://github.com/laetuz/NeoToast.git"
+            developerConnection = "scm:git:ssh://git@github.com/laetuz/NeoToast.git"
+        }
+    }
 }
