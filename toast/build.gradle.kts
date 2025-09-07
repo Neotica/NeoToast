@@ -84,7 +84,7 @@ mavenPublishing {
     coordinates(
         groupId = "id.neotica",
         artifactId = "toast",
-        version = "0.1"
+        version = "0.1.1"
     )
 
     pom {
