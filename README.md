@@ -10,7 +10,7 @@ This library is implemented using the method in https://proandroiddev.com/how-to
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation("id.neotica:toasty:0.3.1") // Check for the latest version
+            implementation("id.neotica:toast:0.3.1") // Check for the latest version
         }
     }
 }
